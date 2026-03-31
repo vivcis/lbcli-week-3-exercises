@@ -11,16 +11,15 @@ rawtx="01000000000101c8b0928edebbec5e698d5f86d0474595d9f6a5b2e4e3772cd9d1005f23b
 output_address="2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP"
 amount_sats=20000000
 
-decoded=$(bitcoin-cli -regtest decoderawtransaction "$rawtx")
+txid=$(echo -n "$rawtx" | sed 's/../\\x&/g' | xargs printf | sha256sum | xxd -r -p | sha256sum | awk '{print $1}')
 
-txid=$(echo "$decoded" | jq -r '.txid')
-vout=0
+vout0=0
+vout1=1
 
 amount_btc=$(awk "BEGIN {printf \"%.8f\", $amount_sats / 100000000}")
 
-#create PSBT with json input and output
 psbt=$(bitcoin-cli -regtest createpsbt \
-  "[{\"txid\":\"$txid\",\"vout\":$vout}]" \
+  "[{\"txid\":\"$txid\",\"vout\":$vout0},{\"txid\":\"$txid\",\"vout\":$vout1}]" \
   "{\"$output_address\":$amount_btc}")
 
 echo "$psbt"
