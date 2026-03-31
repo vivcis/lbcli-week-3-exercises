@@ -1,4 +1,5 @@
 # Create a native segwit address and get the public key from the address.
-#!bin/bash
+#!/bin/bash
 
-bitcoin-cli -named getaddressinfo address=$(bitcoin-cli -named getnewaddress address_type=bech32 | jq -r .result) | jq -r .result.pubkey    
+ADDRESS=$(bitcoin-cli -regtest getnewaddress "" bech32)
+bitcoin-cli -regtest getaddressinfo "$ADDRESS" | jq -r '.pubkey'
