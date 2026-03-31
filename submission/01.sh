@@ -2,4 +2,4 @@
 
 #!/bin/bash
 
-bitcoin-cli -regtest createwallet "btrustwallet"
+bitcoin-cli -regtest createwallet "builderswallet"
