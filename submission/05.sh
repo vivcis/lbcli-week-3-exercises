@@ -6,11 +6,6 @@
 
 #!/bin/bash
 
-bitcoin-cli -testnet createpsbt \
-  '[{"txid":"23c19f37d4e92e9a115aab86e4edc1b92a51add4e0ed0034bb166314dde50e16","vout":0},{"txid":"23c19f37d4e92e9a115aab86e4edc1b92a51add4e0ed0034bb166314dde50e16","vout":1}]' \
-  '[{"2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP":0.20000000},{"<change_address>":0.03678108}]'
-
-bitcoin-cli -testnet walletprocesspsbt "<psbt_base64>"
-
-bitcoin-cli -testnet analyzepsbt "<psbt_base64>"
-bitcoin-cli -testnet decodepsbt "<psbt_base64>"
+bitcoin-cli -regtest createpsbt \
+  '[{"txid":"23c19f37d4e92e9a115aab86e4edc1b92a51add4e0ed0034bb166314dde50e16","vout":0,"sequence":4294967293},{"txid":"23c19f37d4e92e9a115aab86e4edc1b92a51add4e0ed0034bb166314dde50e16","vout":1,"sequence":4294967293}]' \
+  '[{"2MvLcssW49n9atmksjwg2ZCMsEMsoj3pzUP":0.2}]'
